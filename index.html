@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>木口直人 — 社会的処方と作業療法 | Naoto Kiguchi, OT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --teal:      #1E7B6A;
+      --teal-mid:  #2E9E89;
+      --teal-lt:   #D4EDE9;
+      --amber:     #E8972A;
+      --amber-lt:  #FEF3DF;
+      --blue:      #1A6A8C;
+      --blue-lt:   #D4EBF5;
+      --bg:        #F5F9F8;
+      --white:     #FFFFFF;
+      --text:      #1A2C28;
+      --text-mid:  #3D5A54;
+      --text-lt:   #6B8C85;
+      --border:    #C8DDD9;
+      --shadow:    0 4px 24px rgba(30,123,106,.10);
+      --shadow-sm: 0 2px 10px rgba(30,123,106,.07);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.8;
+      word-break: break-word;
+      overflow-wrap: break-word;
+    }
+
+    /* ─── NAVBAR ─── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+    .nav-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 1.2rem; height: 60px;
+    }
+    .nav-logo {
+      font-family: 'Lora', serif; font-size: 1rem; font-weight: 600;
+      color: var(--teal); text-decoration: none; line-height: 1.3; white-space: nowrap;
+    }
+    .nav-logo span {
+      display: block; font-size: .68rem; font-weight: 400;
+      color: var(--text-lt); font-family: 'DM Sans', sans-serif; letter-spacing: .04em;
+    }
+    .nav-links { display: flex; gap: 0; list-style: none; }
+    .nav-links a {
+      display: block; padding: .42rem .75rem;
+      font-size: .78rem; font-weight: 500;
+      color: var(--text-mid); text-decoration: none;
+      border-radius: 6px; transition: background .2s, color .2s; white-space: nowrap;
+    }
+    .nav-links a:hover { background: var(--teal-lt); color: var(--teal); }
+
+    /* ─── HAMBURGER ─── */
+    .hamburger {
+      display: none;
+      width: 40px; height: 40px;
+      background: var(--teal); border: none;
+      border-radius: 8px; cursor: pointer;
+      flex-direction: column; justify-content: center; align-items: center;
+      gap: 4px; padding: 0;
+      transition: background .2s;
+    }
+    .hamburger:hover { background: #166557; }
+    .hamburger span {
+      display: block; width: 18px; height: 2px;
+      background: #fff; border-radius: 2px;
+      transition: transform .25s, opacity .25s;
+    }
+
+    /* ─── MOBILE MENU OVERLAY ─── */
+    .mobile-menu {
+      position: fixed; inset: 0; z-index: 200;
+      background: linear-gradient(160deg, #0D2822 0%, #0D4F42 100%);
+      color: #fff;
+      display: flex; flex-direction: column;
+      transform: translateX(100%);
+      transition: transform .35s cubic-bezier(.4,0,.2,1);
+      overflow-y: auto;
+    }
+    .mobile-menu.open { transform: translateX(0); }
+
+    .mobile-menu-head {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 1.4rem; border-bottom: 1px solid rgba(255,255,255,.12);
+    }
+    .mobile-menu-title { display: flex; flex-direction: column; gap: .15rem; }
+    .mm-jp {
+      font-family: 'Lora', serif; font-size: 1.2rem;
+      font-weight: 600; color: #2BB5A0;
+    }
+    .mm-en {
+      font-size: .7rem; color: rgba(255,255,255,.5);
+      letter-spacing: .12em; text-transform: uppercase;
+    }
+    .mobile-close {
+      width: 40px; height: 40px;
+      background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
+      border-radius: 50%; color: #fff;
+      font-size: 1.4rem; cursor: pointer; line-height: 1;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .2s;
+    }
+    .mobile-close:hover { background: rgba(255,255,255,.2); }
+
+    .mobile-menu-list {
+      list-style: none; padding: .5rem 0;
+    }
+    .mobile-menu-list li {
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .mm-link {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.4rem 1.4rem;
+      color: #fff; text-decoration: none;
+      transition: background .2s, padding-left .2s;
+    }
+    .mm-link:hover, .mm-link:active {
+      background: rgba(255,255,255,.06);
+      padding-left: 1.7rem;
+    }
+    .mm-link > span:first-child {
+      display: flex; flex-direction: column; gap: .15rem;
+      font-size: 1.05rem; font-weight: 500;
+    }
+    .mm-num {
+      font-family: 'DM Sans', sans-serif; font-size: .7rem;
+      color: #2BB5A0; letter-spacing: .1em; margin-bottom: .15rem;
+    }
+    .mm-sub {
+      font-size: .72rem; color: rgba(255,255,255,.5);
+      letter-spacing: .05em; margin-top: .15rem;
+    }
+    .mm-arrow {
+      font-size: 1.6rem; color: rgba(255,255,255,.4);
+      font-weight: 300;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      background: linear-gradient(135deg, #0D4F42 0%, #1E7B6A 55%, #2AA38E 100%);
+      color: #fff; padding: 80px 1.5rem 70px;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/svg%3E") repeat;
+      pointer-events: none;
+    }
+    .hero-inner { position: relative; max-width: 760px; margin: 0 auto; }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.3);
+      color: rgba(255,255,255,.9); font-size: .72rem; font-weight: 500;
+      letter-spacing: .08em; padding: .38rem 1rem; border-radius: 50px; margin-bottom: 1.4rem;
+    }
+    .hero h1 {
+      font-family: 'Lora', serif; font-size: clamp(1.55rem, 5vw, 2.9rem);
+      font-weight: 600; line-height: 1.4; margin-bottom: .8rem;
+    }
+    .hero h1 em { font-style: italic; color: #A8E6DB; }
+    .hero-sub {
+      font-size: clamp(.87rem, 2.5vw, 1rem); opacity: .85;
+      margin: 0 auto 2rem; font-weight: 300; line-height: 1.9;
+    }
+    .hero-actions { display: flex; gap: .8rem; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-block; padding: .72rem 1.5rem; border-radius: 8px;
+      font-size: .87rem; font-weight: 500; text-decoration: none;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,.2); }
+    .btn-white { background: #fff; color: var(--teal); }
+    .btn-outline { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,.6); }
+
+    /* ─── HERO MENU (parallel index) ─── */
+    .hero-menu {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+      gap: .55rem;
+      max-width: 880px; margin: 0 auto;
+    }
+    .hm-item {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      grid-template-rows: auto auto;
+      column-gap: .7rem; row-gap: .15rem;
+      padding: .85rem 1rem;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 10px;
+      color: #fff; text-decoration: none;
+      transition: background .25s, transform .25s, border-color .25s;
+      backdrop-filter: blur(6px);
+    }
+    .hm-item:hover {
+      background: rgba(255,255,255,.16);
+      border-color: rgba(255,255,255,.4);
+      transform: translateY(-2px);
+    }
+    .hm-num {
+      grid-row: 1 / 3;
+      align-self: center;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.05rem; font-weight: 600;
+      color: #A8E6DB;
+      letter-spacing: .04em;
+    }
+    .hm-jp {
+      font-size: .9rem; font-weight: 600;
+      line-height: 1.35;
+    }
+    .hm-en {
+      font-family: 'DM Sans', sans-serif;
+      font-size: .65rem; color: rgba(255,255,255,.55);
+      letter-spacing: .04em;
+    }
+
+    /* ─── SECTION BASE ─── */
+    section { padding: 64px 1.5rem; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-tag {
+      display: inline-block; background: var(--teal-lt); color: var(--teal);
+      font-size: .69rem; font-weight: 700; letter-spacing: .12em;
+      padding: .27rem .85rem; border-radius: 50px; margin-bottom: .85rem; text-transform: uppercase;
+    }
+    .section-tag.amber { background: var(--amber-lt); color: var(--amber); }
+    .section-tag.blue  { background: var(--blue-lt);  color: var(--blue); }
+    h2 {
+      font-family: 'Lora', serif; font-size: clamp(1.4rem, 4vw, 2.1rem);
+      font-weight: 600; color: var(--text); line-height: 1.35; margin-bottom: .5rem;
+    }
+    h2 .en {
+      display: block; font-family: 'DM Sans', sans-serif; font-size: .6em;
+      font-weight: 400; color: var(--text-lt); letter-spacing: .05em; margin-bottom: .2rem;
+    }
+    .lead { font-size: .93rem; color: var(--text-mid); max-width: 660px; margin-bottom: 2rem; line-height: 1.9; }
+
+    /* ─── ABOUT ─── */
+    #about { background: var(--white); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start; }
+    .about-text p { color: var(--text-mid); margin-bottom: 1rem; font-size: .92rem; }
+    .about-box {
+      background: linear-gradient(135deg, #0D4F42 0%, #1E7B6A 100%);
+      color: #fff; border-radius: 16px; padding: 2.2rem; position: relative; overflow: hidden;
+    }
+    .about-box::after {
+      content: '"'; position: absolute; right: 1.2rem; top: -.8rem;
+      font-size: 7rem; font-family: 'Lora', serif; opacity: .08; line-height: 1; pointer-events: none;
+    }
+    .about-box h3 { font-family: 'Lora', serif; font-size: 1.1rem; margin-bottom: .85rem; }
+    .about-box p { opacity: .87; font-size: .87rem; line-height: 1.85; }
+    .about-box p + p { margin-top: .75rem; }
+
+    /* ─── PROFILE ─── */
+    .profile-card {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.5rem; margin-top: 1.8rem;
+      display: flex; gap: 1.2rem; align-items: flex-start; flex-wrap: wrap;
+    }
+    .profile-avatar {
+      width: 68px; height: 68px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--teal-mid), var(--teal));
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Lora', serif; font-size: 1.7rem; color: #fff; flex-shrink: 0;
+    }
+    .profile-info { flex: 1; min-width: 160px; }
+    .profile-info h3 { font-size: .97rem; font-weight: 700; margin-bottom: .2rem; }
+    .profile-info .title { font-size: .78rem; color: var(--text-lt); margin-bottom: .75rem; line-height: 1.65; }
+    .profile-tags { display: flex; flex-wrap: wrap; gap: .38rem; }
+    .tag { font-size: .69rem; font-weight: 500; padding: .2rem .62rem; border-radius: 50px; background: var(--teal-lt); color: var(--teal); }
+
+    /* ─── TRENDS ─── */
+    #trends { background: var(--bg); }
+    .trends-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+    .trend-card {
+      background: var(--white); border-radius: 14px; border: 1px solid var(--border);
+      padding: 1.5rem; box-shadow: var(--shadow-sm); transition: transform .25s, box-shadow .25s;
+    }
+    .trend-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+    .trend-icon {
+      width: 42px; height: 42px; border-radius: 10px; background: var(--teal-lt);
+      display: flex; align-items: center; justify-content: center; margin-bottom: .95rem; font-size: 1.25rem;
+    }
+    .trend-card h3 { font-size: .92rem; font-weight: 700; margin-bottom: .4rem; line-height: 1.4; }
+    .trend-card p  { font-size: .82rem; color: var(--text-mid); line-height: 1.78; }
+
+    /* ─── DIVIDER ─── */
+    .divider {
+      background: linear-gradient(90deg, #0D4F42, var(--teal), #2BB5A0);
+      color: #fff; padding: 50px 1.5rem; text-align: center;
+    }
+    .divider h2 { color: #fff; font-size: clamp(1.05rem, 3vw, 1.45rem); }
+    .divider p  { opacity: .8; margin-top: .5rem; font-size: .9rem; }
+
+    /* ─── MY RESEARCH ─── */
+    #myresearch { background: var(--white); }
+    .myresearch-list { display: flex; flex-direction: column; gap: 1.6rem; }
+    .myresearch-card {
+      border-radius: 14px; border: 1px solid var(--border);
+      overflow: hidden; display: grid; grid-template-columns: 5px 1fr;
+      box-shadow: var(--shadow-sm); transition: box-shadow .25s;
+    }
+    .myresearch-card:hover { box-shadow: var(--shadow); }
+    .mr-bar       { background: var(--teal); }
+    .mr-bar.amber { background: var(--amber); }
+    .mr-bar.blue  { background: var(--blue); }
+    .mr-body { padding: 1.7rem 1.7rem 1.7rem 1.9rem; background: var(--white); }
+    .mr-meta { display: flex; gap: .55rem; align-items: center; flex-wrap: wrap; margin-bottom: .65rem; }
+    .badge {
+      font-size: .66rem; font-weight: 700; letter-spacing: .08em;
+      padding: .17rem .62rem; border-radius: 50px; text-transform: uppercase;
+    }
+    .badge-teal  { background: var(--teal-lt);  color: var(--teal); }
+    .badge-amber { background: var(--amber-lt); color: #B86B0A; }
+    .badge-blue  { background: var(--blue-lt);  color: var(--blue); }
+    .mr-year { font-size: .76rem; color: var(--text-lt); }
+    .mr-body h3 {
+      font-family: 'Lora', serif; font-size: 1.08rem; font-weight: 600;
+      margin-bottom: .48rem; line-height: 1.45;
+    }
+    .mr-body h3 .en {
+      display: block; font-family: 'DM Sans', sans-serif; font-size: .73rem;
+      font-weight: 400; color: var(--text-lt); margin-top: .1rem;
+    }
+    .mr-body p { font-size: .86rem; color: var(--text-mid); margin-bottom: .85rem; line-height: 1.8; }
+    .feat-row { display: flex; flex-wrap: wrap; gap: .38rem; }
+    .feat-tag {
+      font-size: .7rem; padding: .18rem .62rem;
+      background: var(--bg); border: 1px solid var(--border); border-radius: 6px; color: var(--text-mid);
+    }
+
+    /* ─── WORLD RESEARCH ─── */
+    #research { background: var(--bg); }
+    .research-controls { display: flex; flex-wrap: wrap; gap: .48rem; margin-bottom: 1.8rem; }
+    .filter-btn {
+      padding: .33rem .85rem; border-radius: 50px; border: 1px solid var(--border);
+      background: var(--white); color: var(--text-mid); font-size: .77rem; font-weight: 500;
+      cursor: pointer; transition: background .2s, color .2s, border-color .2s;
+      font-family: 'Noto Sans JP', sans-serif;
+    }
+    .filter-btn.active, .filter-btn:hover { background: var(--teal); color: #fff; border-color: var(--teal); }
+    .research-feed { display: flex; flex-direction: column; gap: 1.1rem; }
+    .rf-card {
+      background: var(--white); border-radius: 14px; border: 1px solid var(--border);
+      padding: 1.5rem; box-shadow: var(--shadow-sm); transition: transform .2s, box-shadow .2s;
+    }
+    .rf-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+    .rf-top { display: flex; justify-content: space-between; align-items: flex-start; gap: .8rem; flex-wrap: wrap; margin-bottom: .65rem; }
+    .rf-cats { display: flex; gap: .38rem; flex-wrap: wrap; }
+    .rf-date { font-size: .74rem; color: var(--text-lt); white-space: nowrap; padding-top: .1rem; }
+    .rf-card h3 { font-size: .95rem; font-weight: 700; margin-bottom: .38rem; line-height: 1.5; }
+    .rf-authors { font-size: .77rem; color: var(--text-lt); margin-bottom: .48rem; }
+    .rf-card p  { font-size: .83rem; color: var(--text-mid); line-height: 1.8; }
+    .rf-journal { margin-top: .75rem; font-size: .74rem; color: var(--teal); font-weight: 500; font-style: italic; }
+
+    /* ─── CASES ─── */
+    #cases { background: var(--white); }
+    .cases-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .case-card {
+      background: var(--bg); border-radius: 14px; border: 1px solid var(--border);
+      padding: 1.5rem; box-shadow: var(--shadow-sm); transition: transform .25s, box-shadow .25s;
+    }
+    .case-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+    .case-type { font-size: .67rem; font-weight: 700; letter-spacing: .1em; color: var(--amber); text-transform: uppercase; margin-bottom: .55rem; }
+    .case-card h3 { font-size: .93rem; font-weight: 700; margin-bottom: .42rem; line-height: 1.4; }
+    .case-card p  { font-size: .82rem; color: var(--text-mid); line-height: 1.75; }
+    .case-coming {
+      background: var(--bg); border: 2px dashed var(--border); border-radius: 14px;
+      padding: 1.5rem; text-align: center; color: var(--text-lt); font-size: .83rem; line-height: 1.7;
+    }
+
+    /* ─── FOOTER ─── */
+    footer { background: #0D2822; color: rgba(255,255,255,.7); padding: 54px 1.5rem 34px; }
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2.5rem;
+    }
+    .footer-brand h3 { font-family: 'Lora', serif; font-size: 1.05rem; color: #fff; margin-bottom: .45rem; }
+    .footer-brand p  { font-size: .8rem; line-height: 1.88; }
+    footer h4 { color: #fff; font-size: .76rem; letter-spacing: .1em; text-transform: uppercase; margin-bottom: .85rem; }
+    footer ul { list-style: none; }
+    footer li + li { margin-top: .42rem; }
+    footer a { color: rgba(255,255,255,.58); text-decoration: none; font-size: .8rem; transition: color .2s; }
+    footer a:hover { color: #fff; }
+    .footer-bottom {
+      max-width: 1100px; margin: 2.2rem auto 0; padding-top: 1.3rem;
+      border-top: 1px solid rgba(255,255,255,.1);
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: .74rem; flex-wrap: wrap; gap: .5rem;
+    }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-inner > * { animation: fadeUp .65s ease both; }
+    .hero-badge   { animation-delay: .1s; }
+    .hero h1      { animation-delay: .2s; }
+    .hero-sub     { animation-delay: .32s; }
+    .hero-actions { animation-delay: .44s; }
+    .hero-menu    { animation-delay: .44s; }
+
+    /* ─── RESPONSIVE: Tablet ─── */
+    @media (max-width: 900px) {
+      .trends-grid  { grid-template-columns: 1fr 1fr; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ─── RESPONSIVE: Mobile ─── */
+    @media (max-width: 600px) {
+      section { padding: 48px 1rem; }
+
+      /* デスクトップ用ナビは隠してハンバーガーを表示 */
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      /* 全グリッドを1カラム */
+      .about-grid,
+      .trends-grid,
+      .cases-grid,
+      .footer-inner {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      /* ヒーロー */
+      .hero { padding: 56px 1rem 48px; }
+      .hero-actions { flex-direction: column; align-items: center; }
+      .btn { width: 100%; max-width: 260px; text-align: center; }
+
+      /* カード余白縮小 */
+      .trend-card,
+      .case-card,
+      .rf-card { padding: 1.1rem; }
+      .mr-body  { padding: 1.1rem 1.1rem 1.1rem 1.3rem; }
+      .about-box { padding: 1.5rem; }
+
+      /* RFトップ縦並び */
+      .rf-top { flex-direction: column; gap: .35rem; }
+
+      /* プロフィール */
+      .profile-card { flex-direction: column; gap: .9rem; }
+      .profile-avatar { width: 54px; height: 54px; font-size: 1.35rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      木口 直人
+      <span>Naoto Kiguchi, OT, PhD</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">紹介</a></li>
+      <li><a href="#trends">動向</a></li>
+      <li><a href="#myresearch">自身の研究</a></li>
+      <li><a href="#research">世界の研究</a></li>
+      <li><a href="#cases">事例</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="メニューを開く">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU OVERLAY -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-head">
+    <div class="mobile-menu-title">
+      <span class="mm-jp">メニュー</span>
+      <span class="mm-en">Menu</span>
+    </div>
+    <button class="mobile-close" id="mobileClose" aria-label="メニューを閉じる">×</button>
+  </div>
+  <ul class="mobile-menu-list">
+    <li><a href="#about" class="mm-link"><span><span class="mm-num">01</span>紹介<span class="mm-sub">About</span></span><span class="mm-arrow">›</span></a></li>
+    <li><a href="#trends" class="mm-link"><span><span class="mm-num">02</span>社会的処方の動向<span class="mm-sub">Trends</span></span><span class="mm-arrow">›</span></a></li>
+    <li><a href="#myresearch" class="mm-link"><span><span class="mm-num">03</span>自身の研究<span class="mm-sub">My Research</span></span><span class="mm-arrow">›</span></a></li>
+    <li><a href="#research" class="mm-link"><span><span class="mm-num">04</span>世界の研究<span class="mm-sub">World Research</span></span><span class="mm-arrow">›</span></a></li>
+    <li><a href="#cases" class="mm-link"><span><span class="mm-num">05</span>事例紹介<span class="mm-sub">Case Studies</span></span><span class="mm-arrow">›</span></a></li>
+  </ul>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <span class="hero-badge">Social Prescribing × Occupational Therapy</span>
+    <h1>
+      作業を処方する。<br>
+      <em>Prescribing Occupation for Health.</em>
+    </h1>
+    <p class="hero-sub">
+      社会的処方と作業療法の交点から、<br>
+      健康の社会的決定要因に働きかける実践と研究を発信します。
+    </p>
+    <div class="hero-menu">
+      <a href="#about" class="hm-item">
+        <span class="hm-num">01</span>
+        <span class="hm-jp">紹介</span>
+        <span class="hm-en">About</span>
+      </a>
+      <a href="#trends" class="hm-item">
+        <span class="hm-num">02</span>
+        <span class="hm-jp">社会的処方の動向</span>
+        <span class="hm-en">Trends</span>
+      </a>
+      <a href="#myresearch" class="hm-item">
+        <span class="hm-num">03</span>
+        <span class="hm-jp">自身の研究</span>
+        <span class="hm-en">My Research</span>
+      </a>
+      <a href="#research" class="hm-item">
+        <span class="hm-num">04</span>
+        <span class="hm-jp">世界の研究</span>
+        <span class="hm-en">World Research</span>
+      </a>
+      <a href="#cases" class="hm-item">
+        <span class="hm-num">05</span>
+        <span class="hm-jp">事例紹介</span>
+        <span class="hm-en">Case Studies</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <span class="section-tag">About / 紹介</span>
+    <h2>
+      <span class="en">Social Prescribing & Occupational Therapy</span>
+      社会的処方と作業療法について
+    </h2>
+    <p class="lead">「あなたにとって大切なことは何ですか？」という問いから始まる医療の転換——作業療法士はその最前線に立つ専門職です。</p>
+
+    <div class="about-grid">
+      <div class="about-text">
+        <p><strong>社会的処方（Social Prescribing）</strong>とは、薬や医学的処置だけに頼らず、地域のコミュニティ活動・文化・自然・芸術などの社会資源を「処方」することで、人々の健康・ウェルビーイングを向上させるアプローチです。</p>
+        <p>孤独・経済的困窮・住居問題・生活上の不安など、<strong>健康の社会的決定要因（SDH）</strong>に起因する課題に対し、医療機関だけでは対応しきれない側面があります。社会的処方は、その空白を埋める仕組みとして世界各国で導入が進んでいます。</p>
+        <p>作業療法士（OT）は、日常生活における「作業（Occupation）」の意味と機能を専門とする医療職です。社会的処方との親和性が高く、リンクワーカー的機能を果たす可能性を持つ職種として、国内外で注目されています。</p>
+
+        <div class="profile-card">
+          <div class="profile-avatar">木</div>
+          <div class="profile-info">
+            <h3>木口 直人（Naoto Kiguchi）</h3>
+            <p class="title">作業療法士・博士（保健医療科学）<br>茨城県立医療大学 保健医療学部 作業療法学科 助教</p>
+            <div class="profile-tags">
+              <span class="tag">社会的処方</span>
+              <span class="tag">Social Prescribing</span>
+              <span class="tag">作業療法</span>
+              <span class="tag">SDH</span>
+              <span class="tag">地域包括ケア</span>
+              <span class="tag">混合研究法</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-box">
+        <h3>なぜ作業療法士が社会的処方に関わるのか</h3>
+        <p>作業療法士は、人が「何をするか」「何に意味を見出すか」を評価・支援する専門家です。社会的処方において重要な「その人の興味・関心・強みを引き出す」プロセスは、作業療法の中核的実践と深く重なります。</p>
+        <p>日本においては、医療機関に勤務するOTが健康の社会的側面を支援する役割を担いうるにもかかわらず、その実態は十分に明らかにされていませんでした。</p>
+        <p>本研究活動は、日本における作業療法士の社会的処方への関与を体系的に記述し、実践の根拠を構築することを目的としています。</p>
+        <p style="margin-top:1.1rem;font-size:.76rem;opacity:.62;">Ibaraki Prefectural University of Health Sciences<br>Department of Occupational Therapy</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRENDS -->
+<section id="trends">
+  <div class="section-inner">
+    <span class="section-tag amber">Trends / 動向</span>
+    <h2>
+      <span class="en">Global & Japanese Trends in Social Prescribing</span>
+      社会的処方の動向
+    </h2>
+    <p class="lead">社会的処方は英国を中心に世界へ急速に普及し、日本でも政策的・実践的関心が高まっています。</p>
+
+    <div class="trends-grid">
+      <div class="trend-card">
+        <div class="trend-icon">🌍</div>
+        <h3>世界的な普及</h3>
+        <p>英国（NASP）、カナダ、オーストラリア、欧州各国で国家戦略として位置づけられ、WHOも地域保健政策の重要ツールとして推奨。2020年代にはアジア諸国でも研究・実践が急増しています。</p>
+      </div>
+      <div class="trend-card">
+        <div class="trend-icon">🏥</div>
+        <h3>日本での政策的関心</h3>
+        <p>「地域共生社会」「孤独・孤立対策」「健康の社会的決定要因への対応」の政策枠組みのもと、社会的処方の概念が医療・福祉・行政の分野で注目されています。</p>
+      </div>
+      <div class="trend-card">
+        <div class="trend-icon">🔗</div>
+        <h3>リンクワーカーの役割</h3>
+        <p>医療機関と地域資源をつなぐ「リンクワーカー」が社会的処方の中心的役割を担います。日本ではこの役割を担う職種の整備が課題であり、作業療法士の可能性が検討されています。</p>
+      </div>
+      <div class="trend-card">
+        <div class="trend-icon">📊</div>
+        <h3>エビデンスの蓄積</h3>
+        <p>精神的健康、孤独感の軽減、医療利用の減少など多様なアウトカムで効果が報告されています。日本固有の制度に適合した実装モデルの研究が急務です。</p>
+      </div>
+      <div class="trend-card">
+        <div class="trend-icon">🌿</div>
+        <h3>多様な処方内容</h3>
+        <p>自然・緑地活動（グリーン処方）、芸術・文化活動、スポーツ・身体活動、ボランティア、社会参加など、個人の興味・関心に合わせた地域活動が処方されます。</p>
+      </div>
+      <div class="trend-card">
+        <div class="trend-icon">🤝</div>
+        <h3>多職種連携の重要性</h3>
+        <p>社会的処方の実装には、医師・看護師・社会福祉士・作業療法士・地域住民・行政が連携した包括的なチームアプローチが不可欠です。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIVIDER -->
+<div class="divider">
+  <h2>「薬ではなく、つながりを処方する」</h2>
+  <p><em>"What matters to you?" — the question that transforms healthcare.</em></p>
+</div>
+
+<!-- MY RESEARCH -->
+<section id="myresearch">
+  <div class="section-inner">
+    <span class="section-tag">My Research / 自身の研究</span>
+    <h2>
+      <span class="en">Research on Social Prescribing & OT in Japan</span>
+      自身の研究紹介
+    </h2>
+    <p class="lead">博士論文「日本における社会的処方への作業療法士の関与と有用性」を中心とした一連の研究成果を紹介します。</p>
+
+    <div class="myresearch-list">
+
+      <div class="myresearch-card">
+        <div class="mr-bar"></div>
+        <div class="mr-body">
+          <div class="mr-meta">
+            <span class="badge badge-teal">Study 1</span>
+            <span class="badge badge-teal">スコーピングレビュー</span>
+            <span class="mr-year">2022–2023</span>
+          </div>
+          <h3>日本における社会的処方の文献整理と概念的枠組みの構築
+            <span class="en">Scoping Review: Social Prescribing Literature in Japan</span>
+          </h3>
+          <p>国内外の文献データベースを系統的に検索し、日本における社会的処方の概念・実践・政策に関する文献を包括的にレビューしました。社会的処方の定義・構成要素・実施主体・対象者・アウトカムを整理し、日本固有の文脈における課題と可能性を明らかにしました。本研究は後続の実態調査・事例研究の理論的基盤を提供しています。</p>
+          <div class="feat-row">
+            <span class="feat-tag">系統的文献検索</span>
+            <span class="feat-tag">概念マッピング</span>
+            <span class="feat-tag">PRISMA-ScR準拠</span>
+            <span class="feat-tag">国際比較</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="myresearch-card">
+        <div class="mr-bar amber"></div>
+        <div class="mr-body">
+          <div class="mr-meta">
+            <span class="badge badge-amber">Study 2</span>
+            <span class="badge badge-amber">全国調査</span>
+            <span class="mr-year">2023</span>
+          </div>
+          <h3>医療機関に勤務する作業療法士の社会的処方への関与実態：全国調査
+            <span class="en">National Survey: OT Involvement in Social Prescribing in Medical Settings (n = 322)</span>
+          </h3>
+          <p>全国の医療機関に勤務する作業療法士322名を対象に、社会的処方に関連する実践・認識・阻害要因・促進要因を量的に検討しました。多項ロジスティック回帰分析・因子分析・Kruskal-Wallis検定（Bonferroni補正）を用い、OTが果たすリンクワーカー的機能の実態と組織的・職業的文脈における多様性を明らかにしました。</p>
+          <div class="feat-row">
+            <span class="feat-tag">全国調査（n=322）</span>
+            <span class="feat-tag">多項ロジスティック回帰</span>
+            <span class="feat-tag">因子分析</span>
+            <span class="feat-tag">Kruskal-Wallis検定</span>
+            <span class="feat-tag">Bonferroni補正</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="myresearch-card">
+        <div class="mr-bar blue"></div>
+        <div class="mr-body">
+          <div class="mr-meta">
+            <span class="badge badge-blue">Study 3</span>
+            <span class="badge badge-blue">後ろ向き事例研究</span>
+            <span class="mr-year">2023–2024</span>
+          </div>
+          <h3>ひきこもり事例への作業療法士による社会的処方の実践：後ろ向き質的事例研究
+            <span class="en">Retrospective Case Study: OT-led Social Prescribing for Hikikomori</span>
+          </h3>
+          <p>医療機関においてひきこもり状態にある対象者への作業療法士の関与事例を後ろ向きに分析しました。OTが実施した介入プロセスを社会的処方の枠組みで質的に記述し、個別ニーズの把握・地域資源の活用・段階的な社会参加支援のプロセスを明らかにしました。</p>
+          <div class="feat-row">
+            <span class="feat-tag">ひきこもり支援</span>
+            <span class="feat-tag">後ろ向き質的分析</span>
+            <span class="feat-tag">地域資源活用</span>
+            <span class="feat-tag">社会参加支援</span>
+            <span class="feat-tag">混合研究法</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- WORLD RESEARCH FEED -->
+<section id="research">
+  <div class="section-inner">
+    <span class="section-tag blue">World Research / 世界の研究</span>
+    <h2>
+      <span class="en">Research Updates from Around the World</span>
+      世界の研究・文献紹介
+    </h2>
+    <p class="lead">社会的処方に関する国内外の注目論文・研究を随時紹介します。カテゴリで絞り込みができます。</p>
+
+    <div class="research-controls" id="filterControls">
+      <button class="filter-btn active" data-cat="all">すべて</button>
+      <button class="filter-btn" data-cat="ot">作業療法</button>
+      <button class="filter-btn" data-cat="qualitative">質的研究</button>
+      <button class="filter-btn" data-cat="implementation">実装研究</button>
+      <button class="filter-btn" data-cat="linkworker">リンクワーカー</button>
+      <button class="filter-btn" data-cat="elderly">高齢者</button>
+      <button class="filter-btn" data-cat="uk">英国</button>
+      <button class="filter-btn" data-cat="nordic">北欧</button>
+    </div>
+
+    <div class="research-feed" id="researchFeed">
+
+      <!--
+        ★ 新しい研究を追加するときはここにカードをコピーして貼り付けてください ★
+        data-cats には半角スペース区切りで対応カテゴリを入れます
+        カテゴリ: ot / qualitative / implementation / linkworker / elderly / uk / nordic
+      -->
+
+      <!-- Study A: Bradley et al. (2025) -->
+      <div class="rf-card" data-cats="ot qualitative linkworker uk">
+        <div class="rf-top">
+          <div class="rf-cats">
+            <span class="badge badge-teal">作業療法</span>
+            <span class="badge badge-blue">質的研究</span>
+            <span class="badge badge-amber">英国</span>
+          </div>
+          <span class="rf-date">2025</span>
+        </div>
+        <h3>英国の作業療法士による社会的処方への関与：質的インタビュー研究</h3>
+        <p class="rf-authors">Bradley G, Atkin B, Atkin H, Scott J.</p>
+        <p>英国で社会的処方に関与している作業療法士19名に対する半構造化インタビュー調査。テーマ分析の結果、「ポジションとアイデンティティ」「機能させること（making it work）」という2つの主要テーマが抽出されました。OTは社会的処方との類似性ゆえに自身の役割の位置づけに困難を抱える一方、より医療的・複雑事例への対応・チーム内での上位職としての差別化を行っていることが示されました。リンクワーカーへの委任、スーパービジョン関与の不明確さといった課題と、サービス開発における将来の関与可能性についても考察されています。</p>
+        <p class="rf-journal">British Journal of Occupational Therapy, 88(1), 25–34. <br>doi: 10.1177/03080226241270520</p>
+      </div>
+
+      <!-- Study B: Jonsson et al. (2026) -->
+      <div class="rf-card" data-cats="ot implementation elderly nordic">
+        <div class="rf-top">
+          <div class="rf-cats">
+            <span class="badge badge-teal">作業療法</span>
+            <span class="badge badge-amber">実装研究</span>
+            <span class="badge badge-blue">高齢者</span>
+            <span class="badge" style="background:#E8E0F4;color:#5A3F8A;">北欧</span>
+          </div>
+          <span class="rf-date">2026</span>
+        </div>
+        <h3>スウェーデン・プライマリケアにおける社会的処方の早期実装：理論に基づくプロセス評価</h3>
+        <p class="rf-authors">Jonsson F, Viklund EWE, Degerstedt F, Lundgren AS, Nilsson I.</p>
+        <p>スウェーデン北部のプライマリケア10施設において、高齢者の孤独感軽減と健康増進を目的に開発された社会的処方モデルの早期実装過程を、Normalization Process Theory（NPT）とConsolidated Framework for Implementation Research（CFIR）を統合した枠組みで評価した質的研究。社会的処方の実施者の多くは作業療法士が担っており、関連性・タイミングは高く評価されたものの、孤独に対するスクリーニング質問の選択的運用、組織的支援の象徴性、地域資源との連携不足といった実装上の障壁が明らかになりました。北欧文脈における社会的処方研究として国際的に貴重な知見を提供する論文です。</p>
+        <p class="rf-journal">Health Promotion International, 41(2), daag041. <br>doi: 10.1093/heapro/daag041</p>
+      </div>
+
+      <!--
+        ★ 追加用テンプレート（コピーして使ってください）★
+        <div class="rf-card" data-cats="カテゴリ1 カテゴリ2">
+          <div class="rf-top">
+            <div class="rf-cats">
+              <span class="badge badge-teal">カテゴリ表示名</span>
+            </div>
+            <span class="rf-date">発表年</span>
+          </div>
+          <h3>論文タイトル（日本語訳）</h3>
+          <p class="rf-authors">著者名（First Author et al.）</p>
+          <p>要旨・解説文をここに記入します。</p>
+          <p class="rf-journal">掲載雑誌名, 巻(号), ページ. <br>doi: ...</p>
+        </div>
+      -->
+
+    </div>
+  </div>
+</section>
+
+<!-- CASES -->
+<section id="cases">
+  <div class="section-inner">
+    <span class="section-tag amber">Case Studies / 事例紹介</span>
+    <h2>
+      <span class="en">Case Studies: OT Practice in Social Prescribing</span>
+      事例紹介(随時更新)
+    </h2>
+    <p class="lead">社会的処方に関与する作業療法士の実践事例を紹介します。事例は順次追加予定です。</p>
+
+    <!--
+      ★ カテゴリの変更方法 ★
+      下のボタンを追加・削除・編集すれば、いつでもカテゴリを変えられます。
+      新しいカテゴリを追加するときは:
+        1. ここに <button class="filter-btn" data-cat="英字キー">表示名</button> を追加
+        2. 該当する事例カードの data-cats="..." に英字キーを追記する
+    -->
+    <div class="research-controls" id="caseFilterControls">
+      <button class="filter-btn active" data-cat="all">すべて</button>
+      <button class="filter-btn" data-cat="hikikomori">ひきこもり</button>
+      <button class="filter-btn" data-cat="elderly">高齢者</button>
+      <button class="filter-btn" data-cat="economic">生活困窮</button>
+      <button class="filter-btn" data-cat="interprof">多職種連携</button>
+      <button class="filter-btn" data-cat="community">地域連携</button>
+      <button class="filter-btn" data-cat="mental">精神保健</button>
+    </div>
+
+    <div class="cases-grid">
+
+      <!-- Case 01 -->
+      <div class="case-card" data-cats="hikikomori mental community">
+        <p class="case-type">Case Report 01</p>
+        <h3>長期的孤立を経験したひきこもり事例への段階的地域参加支援</h3>
+        <p>医療機関に通院中の40代男性。外出困難・社会的孤立が長期化するなか、OTが本人の「好きなこと」に着目し、地域の図書館ボランティアへの段階的参加を支援した事例。社会参加の回復過程における作業の意味と役割を考察します。</p>
+      </div>
+
+      <!-- Case 02 -->
+      <div class="case-card" data-cats="elderly economic interprof community">
+        <p class="case-type">Case Report 02</p>
+        <h3>経済的困窮を背景とした生活不活発事例への社会資源活用</h3>
+        <p>生活困窮・不活発状態にある60代女性に対し、地域包括支援センターおよびNPO団体と連携し、社会的処方の枠組みで介入した事例。多職種連携における作業療法士の役割と貢献について記述します。</p>
+      </div>
+
+      <!--
+        ★ 新しい事例を追加するときはここにカードをコピーして貼り付けてください ★
+        テンプレート:
+        <div class="case-card" data-cats="カテゴリ1 カテゴリ2">
+          <p class="case-type">Case Report 03</p>
+          <h3>事例タイトル</h3>
+          <p>事例の概要・解説文をここに記入します。</p>
+        </div>
+      -->
+
+      <div class="case-coming">
+        <p>📋 事例追加予定（2025年度）</p>
+        <p style="margin-top:.38rem;font-size:.77rem;">発達障害のある子どもへの地域活動参加支援事例を掲載予定</p>
+      </div>
+      <div class="case-coming">
+        <p>📋 事例追加予定</p>
+        <p style="margin-top:.38rem;font-size:.77rem;">高齢者の社会的孤立に対するグリーン処方の実践事例を掲載予定</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <h3>木口 直人 / Naoto Kiguchi</h3>
+      <p>
+        茨城県立医療大学 保健医療学部 作業療法学科 助教<br>
+        Assistant Professor, Department of Occupational Therapy<br>
+        Ibaraki Prefectural University of Health Sciences<br><br>
+        専門：社会的処方・作業療法・健康の社会的決定要因
+      </p>
+    </div>
+    <div>
+      <h4>コンテンツ</h4>
+      <ul>
+        <li><a href="#about">紹介・プロフィール</a></li>
+        <li><a href="#trends">社会的処方の動向</a></li>
+        <li><a href="#myresearch">自身の研究</a></li>
+        <li><a href="#research">世界の研究</a></li>
+        <li><a href="#cases">事例紹介</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>関連リンク</h4>
+      <ul>
+        <li><a href="https://socialprescribingacademy.org.uk/" target="_blank">NASP（英国）</a></li>
+        <li><a href="https://www.ipu.ac.jp/" target="_blank">茨城県立医療大学</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Naoto Kiguchi. All rights reserved.</span>
+    <span>Ibaraki Prefectural University of Health Sciences</span>
+  </div>
+</footer>
+
+<script>
+  // フィルター機能（世界の研究 / 事例紹介に共通）
+  function setupFilter(controlsId, cardSelector) {
+    const controls = document.getElementById(controlsId);
+    if (!controls) return;
+    const btns  = controls.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll(cardSelector);
+    btns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        btns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const cat = btn.dataset.cat;
+        cards.forEach(card => {
+          const cats = card.dataset.cats || '';
+          card.style.display = (cat === 'all' || cats.split(' ').includes(cat)) ? '' : 'none';
+        });
+      });
+    });
+  }
+  setupFilter('filterControls',     '.rf-card');     // 世界の研究
+  setupFilter('caseFilterControls', '.case-card');   // 事例紹介
+
+  // モバイルメニュー開閉
+  const hamburger   = document.getElementById('hamburger');
+  const mobileMenu  = document.getElementById('mobileMenu');
+  const mobileClose = document.getElementById('mobileClose');
+  const mmLinks     = document.querySelectorAll('.mm-link');
+
+  function openMenu()  { mobileMenu.classList.add('open');  document.body.style.overflow = 'hidden'; }
+  function closeMenu() { mobileMenu.classList.remove('open'); document.body.style.overflow = ''; }
+
+  hamburger.addEventListener('click', openMenu);
+  mobileClose.addEventListener('click', closeMenu);
+  mmLinks.forEach(link => link.addEventListener('click', closeMenu));
+</script>
+
+</body>
+</html>
